@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>초기 웹페이지</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="./style.css">
+  </head>
+<body>
+<div class='nocut' id='wrap'>
+  <p>
+    <strong># application.py</strong>
+    <details>
+    <summary>코드</summary>
+    <p><small><strong>
+      from flask import Flask, render_template, request, redirect, url_for, flash<br>
+from flask_login import LoginManager, login_user, current_user, logout_user<br>
+from wtform_fields import *<br>
+from models import *<br><br>
+
+app = Flask(__name__)<br>
+app.secret_key = 'replace later'<br><br>
+
+app.config['SQLALCHEMY_DATABASE_URI']='DB주소'<br>
+db = SQLAlchemy(app)<br><br>
+
+login = LoginManager(app)<br>
+login.init_app(app)<br><br>
+
+@login.user_loader<br>
+def load_user(id):<br>
+    &emsp;return User.query.get(int(id))<br><br>
+
+@app.route('/', methods=['GET', 'POST'])<br>
+def index():<br>
+    &emsp;reg_form = RegistartionForm()<br><br>
+
+    &emsp;if reg_form.validate_on_submit():<br>
+        &emsp;&emsp;username = reg_form.username.data<br>
+        &emsp;&emsp;password = reg_form.password.data<br><br>
+
+        &emsp;&emsp;hashed_pwd = pbkdf2_sha256.hash(password)<br><br>
+
+        &emsp;&emsp;user = User(username=username, password=hashed_pwd)<br>
+        &emsp;&emsp;db.session.add(user)<br>
+        &emsp;&emsp;db.session.commit()<br>
+        &emsp;&emsp;return redirect(url_for('login'))<br>
+    &emsp;return render_template("index.html", form=reg_form)<br><br>
+
+@app.route("/login", methods=['GET', 'POST'])<br>
+def login():<br>
+    &emsp;login_form = LoginForm()<br><br>
+
+    &emsp;if login_form.validate_on_submit():<br>
+        &emsp;&emsp;user_object = User.query.filter_by(username=login_form.username.data).first()<br>
+        &emsp;&emsp;login_user(user_object)<br><br>
+        &emsp;&emsp;return redirect(url_for('chat'))<br>
+    &emsp;return render_template('login.html', form=login_form)<br><br>
+
+@app.route("/chat", methods=['GET', 'POST'])<br>
+def chat():<br>
+    &emsp;if not current_user.is_authenticated:<br>
+        &emsp;&emsp;return "채팅에 접속하기 전 먼저 로그인을 해주세요"<br>
+    &emsp;return "채팅 시작하기"<br><br>
+
+@app.route("/logout", methods=['GET'])<br>
+def logout():<br>
+    &emsp;logout_user()<br>
+    &emsp;return "로그아웃 성공"<br><br>
+
+if __name__ == '__main__':<br>
+    &emsp;app.run(debug=True)
+    </small></strong></p>
+    </details>
+
+
+    <div class='nocut' id='wrap'>
+    <p>
+    <strong># wtform_fields.py</strong><br>
+    <details>
+    <summary>코드</summary>
+    <p><small><strong>
+from flask_wtf import FlaskForm<br>
+from wtforms import StringField, PasswordField, SubmitField<br>
+from wtforms.validators import InputRequired, Length, EqualTo, ValidationError<br>
+from passlib.hash import pbkdf2_sha256<br>
+from models import User<br><br>
+
+def invalid_credentials(form, field):<br>
+    &emsp;username_entered = form.username.data<br>
+    &emsp;password_entered = field.data<br><br>
+
+    &emsp;user_object = User.query.filter_by(username=username_entered).first()
+    &emsp;&emsp;if user_object is None:<br>
+        &emsp;&emsp;raise ValidationError('아이디 또는 패스워드가 틀립니다')<br>
+    &emsp;elif not pbkdf2_sha256.verify(password_entered, user_object.password):<br>
+        &emsp;&emsp;raise ValidationError('아이디 또는 패스워드가 틀립니다')<br><br>
+
+class RegistartionForm(FlaskForm):<br>
+    &emsp;username = StringField('username', <br>
+        &emsp;&emsp;validators=[InputRequired(message="아이디를 입력하세요"), <br>
+        &emsp;&emsp;Length(min=4, max=25, message="아이디는 4-25자 이내로 입력")])<br>
+    &emsp;password = PasswordField('password', <br>
+        &emsp;&emsp;validators=[InputRequired(message="패스워드를 입력하세요"),<br> 
+        &emsp;&emsp;Length(min=4, max=25, message="비밀번호는 4-25자 이내로 입력")])<br>
+    &emsp;confirm_pwd = PasswordField('confirm_pwd', <br>
+        &emsp;&emsp;validators=[InputRequired(message="패스워드를 다시 입력하세요"), <br>
+        &emsp;&emsp;EqualTo('password', message="패스워드가 일치하지 않습니다.")])<br>
+    &emsp;submit_btn = SubmitField('만들기')<br><br>
+
+    &emsp;def validate_username(self, username):<br>
+        &emsp;&emsp;user_object = User.query.filter_by(username=username.data).first()<br>
+        &emsp;&emsp;if user_object:<br>
+            &emsp;&emsp;&emsp;raise ValidationError('이미 아이디가 존재합니다. 다른 아이디를 입력해주세요.')<br><br>
+
+class LoginForm(FlaskForm):<br>
+    &emsp;username = StringField('username_label',<br>
+        &emsp;&emsp;validators=[InputRequired(message="아이디를 입력하세요")])<br>
+    &emsp;password = PasswordField('password_label',<br>
+        &emsp;&emsp;validators=[InputRequired(message="패스워드를 입력하세요"),<br>
+        &emsp;&emsp;invalid_credentials])<br>
+    &emsp;submit_btn = SubmitField('로그인')
+    </details>
+    </small></strong></p>
+        </p>
+      </div>
+
+
+      <div class='nocut' id='wrap'>
+    <p>
+    <strong># models.py</strong><br>
+    <details>
+    <summary>코드</summary>
+    <p><small><strong>
+from flask_sqlalchemy import SQLAlchemy<br>
+from flask_login import UserMixin<br><br>
+
+db = SQLAlchemy()<br><br>
+
+class User(UserMixin, db.Model):<br>
+
+    &emsp;__tablename__ = "users"<br>
+    &emsp;id = db.Column(db.Integer, primary_key=True)<br>
+    &emsp;username = db.Column(db.String(25), unique=True, nullable=False)<br>
+    &emsp;password = db.Column(db.String(), nullable=False)
+    </details>
+    </small></strong></p>
+        </p>
+      </div>
+  </p>
+</div>
+
+<div class='nocut' id='wrap'>
+  <p>
+    <strong># index.html</strong>
+    <details>
+    <summary>코드</summary>
+      <br><a href="https://drive.google.com/file/d/1cn9gLIV5Sw0vyGcvaagVZTV6Fs_2lhAj/view?usp=sharing" target="_blank">HTML Code</a>
+    </details>
+    </strong></p>
+
+      </div>
+      <div class='nocut' id='wrap'>
+  <p>
+    <strong># login.html</strong>
+    <details>
+    <summary>코드</summary>
+      <br><a href="https://drive.google.com/file/d/17iCtYS_AflxtQgUvjMBFEwvJq_Ks02Vj/view?usp=sharing" target="_blank">HTML Code</a>
+    </details>
+    </strong></p>
+    <div class='nocut' id='wrap'>
+  <p>
+    <strong># prelogin-layout.html</strong>
+    <details>
+    <summary>코드</summary>
+      <br><a href="https://drive.google.com/file/d/1-d7FdGzb_Wk16IAi6_c3f0pnxyEiOPGK/view?usp=sharing" target="_blank">HTML Code</a>
+    </details>
+    </strong></p>
+
+      </div>
+      <div class='nocut' id='wrap'>
+  <p>
+    <strong># form_helper.html</strong>
+    <details>
+    <summary>코드</summary>
+      <br><a href="https://drive.google.com/file/d/1NoL21dtlSiyXFYCeC3I2HxjmMz19EWBP/view?usp=sharing" target="_blank">HTML Code</a>
+    </details>
+    </strong></p>
+
+      </div>
+
+      </div>
+  </p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class='multi-button'>
+  <button class='cut'>Cut</button>
+  <button class='copy'>Copy</button>
+  <button class='paste'>Paste</button>
+  <div class='close'></div>
+</div>
+<!-- partial -->
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<script src='https://unpkg.com/splitting@1.0.5/dist/splitting.min.js'></script><script  src="./script.js"></script>
+</body>
+</html>

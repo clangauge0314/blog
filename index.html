@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script language='JavaScript' type='text/javascript'> 
+        function layer_toggle(obj) { 
+            if (obj.style.display=='none') obj.style.display = 'block'; 
+            else if (obj.style.display=='block') obj.style.display = 'none'; } 
+        </script> 
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <link href="assets/img/icon.svg" rel="shortcut icon" type="image/x-icon">
+        <title>Chat App Blog</title>
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">채팅 프로그램</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="" /></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Front page</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#first">1. CLI Chat App</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#pyqt">2. PYQT5 GUI CHAT APP </a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#recaptcha">3. PHP reCAPTCHA</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#flask">4. PYTHON FLASK CHAT</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#django">5. Django Channels Chat</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#react">6. React.js Chat</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="more/index.html" target="_blank">Browse more..</a></li>
+
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        Chat App
+                        <span class="text-primary"></span>
+                    </h1>
+                    <div class="subheading mb-5">
+                        clangauge0314
+                        <a href="mailto:name@email.com">clangauge0314@naver.com</a>
+                    </div>
+                    <div class="social-icons">
+                        <a class="social-icon" href="https://repl.it/@clangauge0314" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="social-icon" href="https://github.com/clangauge0314/CLIPython1" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Experience-->
+            <section class="resume-section" id="first">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">CLI Chat App</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">server.py</h3>
+                            <div class="subheading mb-3">code</div>
+                        <div id="A" style="display: block;"> 
+                        <a onclick="layer_toggle(document.getElementById('A')); layer_toggle(document.getElementById('B')); return false;" href="#">코드보기</a> 
+                        </div> 
+                        <div id="B" style="display: none;"> 
+                        <a onclick="layer_toggle(document.getElementById('A')); layer_toggle(document.getElementById('B')); return false;" href="#">코드닫기</a> 
+                        <span style = "line-height:50%"><br></span>
+                        <p>1. threading, socket 모듈을 추가합니다.<br>
+import threading, socket<br>
+<br>
+2. 호스트 주소와 포트 주소를 설정합니다.<br>
+host = "127.0.0.1"<br>
+port = 9000
+<br><br>
+3. 소켓에 2가지 매개변수를 전달하고<br> 서버를 수신 대기로 설정한 후 클라이언트의 연결을 기다립니다.<br>
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)<br>
+server.bind((host, port))<br>
+server.listen()<br>
+<br>
+clients = []<br>
+nicknames = []<br>
+<br>
+4. 연결된 모든 클라이언트의 메세지를 보내는 기능을 하는 함수<br>
+def broadcast(msg):<br>
+    &emsp;for client in clients:<br>
+        &emsp;&emsp;client.send(msg)<br><br>
+5. 클라이언트가 서버에 접속 시 무한루프가 실행되면서 메세지를 수신하고 브로드캐스팅합니다.<br> 또 모든 클라이언트가 동일한 메세지를 볼 수 있게 해줍니다.<br>
+def handle(client):<br>
+    &emsp;while True:<br>
+        &emsp;&emsp;try:<br>
+            &emsp;&emsp;&emsp;msg = client.recv(1024)<br>
+            &emsp;&emsp;&emsp;broadcast(msg)<br>
+        &emsp;&emsp;except:<br>
+            &emsp;&emsp;&emsp;index = clients.index(client)<br>
+            &emsp;&emsp;&emsp;clients.remove(client)<br>
+            &emsp;&emsp;&emsp;client.close()<br>
+            &emsp;&emsp;&emsp;nickname = nicknames[index]<br>
+            &emsp;&emsp;&emsp;broadcast(f'{nickname}이(가) 채팅방을 나감'.encode('ascii'))<br>
+            &emsp;&emsp;&emsp;nicknames.remove(nickname)<br>
+            &emsp;&emsp;&emsp;break<br>
+<br>
+6. 서버가 실행할 준비가 되면 receive 함수는 수신기능을 합니다.<br>
+def receive():<br>
+    &emsp;while True:<br>
+        &emsp;&emsp;client, address = server.accept()<br>
+        &emsp;&emsp;print(f"주소: {str(address)}에 접속")<br>
+<br>
+        &emsp;&emsp;client.send('NICK'.encode('ascii'))<br>
+        &emsp;&emsp;nickname = client.recv(1024).decode('ascii')<br>
+        &emsp;&emsp;nicknames.append(nickname)<br>
+        &emsp;&emsp;clients.append(client)<br>
+<br>
+        &emsp;&emsp;print(f"클라이언트의 닉네임은 {nickname}")<br>
+        &emsp;&emsp;broadcast(f'{nickname}이(가) 채팅방에 참가'.encode('ascii'))<br>
+        &emsp;&emsp;client.send('서버에 접속완료'.encode('ascii'))<br>
+<br>
+        &emsp;&emsp;thread = threading.Thread(target=handle, args=(client,))<br>
+        &emsp;&emsp;thread.start()<br>
+<br>
+print('서버는 클라이언트 접속을 기다리는 중...')<br>
+receive()</p>
+                        </div>    
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">lines 49</span></div>
+                    </div>
+
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">client.py</h3>
+                            <div class="subheading mb-3">code</div>
+                            <div id="C" style="display: block;"> 
+                        <a onclick="layer_toggle(document.getElementById('C')); layer_toggle(document.getElementById('D')); return false;" href="#">코드보기</a> 
+                        </div> 
+                        <div id="D" style="display: none;"> 
+                        <a onclick="layer_toggle(document.getElementById('C')); layer_toggle(document.getElementById('D')); return false;" href="#">코드닫기</a> 
+                        <span style = "line-height:50%"><br></span>
+                        <p>1. threading, socket 모듈을 추가합니다.<br>
+                                                        import socket, threading
+                        <br><br>
+                        2. 닉네임을 입력<br>
+                        nickname = input("input: ")<br>
+                        <br>3. 기존서버에 접속<br>
+                        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)<br>
+                        client.connect(("127.0.0.1", 9000))<br>
+                        <br>4. 무한루프를 통해 지속적으로 메세지를 수신하고 화면에 출력<br>
+                        def receive():<br>
+                            &emsp;while True:<br>
+                                &emsp;&emsp;try:<br>
+                                    &emsp;&emsp;&emsp;msg = client.recv(1024).decode('utf-8')<br>
+                                    &emsp;&emsp;&emsp;if msg == 'NICK':<br>
+                                        &emsp;&emsp;&emsp;&emsp;client.send(nickname.encode('utf-8'))<br>
+                                    &emsp;&emsp;&emsp;else:<br>
+                                        &emsp;&emsp;&emsp;&emsp;print(msg)<br>
+                                &emsp;&emsp;except:<br>
+                                    &emsp;&emsp;&emsp;print("에러")<br>
+                                    &emsp;&emsp;&emsp;client.close()<br>
+                                    &emsp;&emsp;&emsp;break<br>
+                        <br>5. 사용자에 입력을 기다리며 무한루프<br>
+                        def write():<br>
+                            &emsp;while True:<br>
+                                &emsp;&emsp;msg = f'{nickname}: {input("")}'<br>
+                                &emsp;&emsp;client.send(msg.encode('utf-8'))<br>
+                        <br>6. 2개의 쓰레드를 시작<br>
+                        receive_thread = threading.Thread(target=receive)<br>
+                        receive_thread.start()<br>
+                        <br>
+                        write_thread = threading.Thread(target=write)<br>
+                        write_thread.start()</p>
+                        </div>
+                            
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">lines 30</span></div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">실행영상</h3>
+                            <div class="subheading mb-3">video</div><p>
+                            <video autoplay controls loop muted height="530" width="1000" loop='false'>
+  <source src="assets/img/video.mp4" type="video/mp4" >
+
+</video></p>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">0:00-0:41</span></div>
+                    </div>
+                    
+            </section>
+            <hr class="m-0" />
+        
+<section class="resume-section" id="pyqt">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Pyqt5 gui chat app</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">py</h3>
+                            <div class="wrapper">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<div class="container-tab">
+    <br>
+    <ul class="accordion-tabs">
+        <li class="tab-head-cont">
+            <a href="#" class="is-active">1. 모듈 추가하기</a>
+            <section>
+                <div>import <strong><span tooltip="변수와 함수를 직접 제어" flow="right">sys</span></strong>
+                <br><div>import os</strong><br><br>
+from <strong><span tooltip="파이썬 GUI 모듈" flow="right">PyQt5</span></strong>.<strong><span tooltip="Pyqt5의 기본 위젯(버튼, 메세지 박스 등)" flow="right">QtWidgets</span></strong> import (QApplication, QWidget, QPushButton, QMessageBox, QLabel, QLineEdit,
+         QRadioButton, QButtonGroup, QScrollArea)<br>
+from PyQt5.<strong><span tooltip="글꼴, 글자크기 함수를 지원" flow="right">QtGui</span></strong> import (QFont)<br>
+from PyQt5.<strong><span tooltip="사용자 정의 시그널을 만들 때 사용" flow="right">QtCore</span></strong> import Qt, pyqtSignal<br><br>
+from socket import *<br>
+from datetime import datetime<br>
+import threading<br>
+import re<br>
+import json<br>
+
+            </div>
+            </section>
+        </li>
+        <li class="tab-head-cont">
+            <a href="#">2. 메인 창, 위젯 추가</a>
+            <section>
+                <p><strong><span tooltip="코드가 너무 길어서 설명x(513줄)" flow="right"><a href = "https://drive.google.com/file/d/1lGrcYltN6lbzGVs1ZyepqBueBvyptoXK/view?usp=sharing" target="_blank">코드공유</a></strong></span>
+            </p>
+            </section>
+        </li>
+        <li class="tab-head-cont">
+            <a href="#">3. 소켓 모듈을 이용해 udp, tcp 연결 설정</a>
+            <section>
+                <p><strong><span tooltip="코드가 너무 길어서 설명x(513줄)" flow="right"><a href = "https://drive.google.com/file/d/1lGrcYltN6lbzGVs1ZyepqBueBvyptoXK/view?usp=sharing" target="_blank">코드공유</a></strong></p>    
+            </section>
+        </li>
+        <li class="tab-head-cont">
+            <a href="#">4. 실제 메세지를 주고 받는 send 함수 구현</a>
+            <section>
+                <p><strong><span tooltip="코드가 너무 길어서 설명x(513줄)" flow="right"><a href = "https://drive.google.com/file/d/1lGrcYltN6lbzGVs1ZyepqBueBvyptoXK/view?usp=sharing" target="_blank">코드공유</a></strong></p>
+            </section>
+        </li>
+    </ul>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.accordion-tabs').children('li').first().children('a').addClass('is-active').next().addClass('is-open').show();
+        $('.accordion-tabs').on('click', 'li > a', function(event) {
+            if (!$(this).hasClass('is-active')) {
+                event.preventDefault();
+                $('.accordion-tabs .is-open').removeClass('is-open').hide();
+                $(this).next().toggleClass('is-open').toggle();
+                $('.accordion-tabs').find('.is-active').removeClass('is-active');
+                $(this).addClass('is-active');
+            } else {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+</div>
+<br>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">실행영상</h3>
+                            <div class="subheading mb-3">video</div><p>
+                            <video autoplay controls loop muted height="350" width="1000" loop='false'>
+  <source src="assets/img/pyqt5chat.mp4" type="video/mp4" >
+</video></p>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">0:00-1:17</span></div>
+                    </div>
+            </section>
+            <hr class="m-0" />
+            <section class="resume-section" id="recaptcha">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">php recaptcha</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">php</h3>
+                            <div class="wrapper">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<div class="container-tab">
+    <br>
+    <ul class="accordion-tabs">
+        <li class="tab-head-cont">
+            <a href="#" class="is-active">index.php</a>
+            <section>
+                <p><xmp><html>  
+<head>  
+        <title>Google reCaptcha 예제</title>  
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    </head>  
+    <body>  
+        <div class="container" style="width: 600px">
+   <br/>
+   <h3 align="center">Google reCaptcha 예제</a></h3><br />
+   <br/>
+   <div class="panel panel-default">
+    <div class="panel-heading">회원가입 Form</div>
+    <div class="panel-body">
+     <form metod="post" id="captcha_form">
+      <div class="form-group">
+       <div class="row">
+        <div class="col-md-6">
+         <label>성 <span class="text-danger">*</span></label>
+         <input type="text" name="first_name" id="first_name" class="form-control" />
+         <span id="first_name_error" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+         <label>이름 <span class="text-danger">*</span></label>
+         <input type="text" name="last_name" id="last_name" class="form-control" />
+         <span id="last_name_error" class="text-danger"></span>
+        </div>
+       </div>
+      </div>
+      <div class="form-group">
+       <label>이메일 주소<span class="text-danger">*</span></label>
+       <input type="text" name="email" id="email" class="form-control" />
+       <span id="email_error" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+       <label>패스워드 <span class="text-danger">*</span></label>
+       <input type="password" name="password" id="password" class="form-control" />
+       <span id="password_error" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+       <div class="g-recaptcha" data-sitekey="6LeR8A8aAAAAADuCSLBY4UznUejgDMVG2M4gPoZt"></div>
+       <span id="captcha_error" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+       <input type="submit" name="register" id="register" class="btn btn-info" value="가입하기" />
+      </div>
+     </form>
+    </div>
+   </div>
+  </div>
+</body>  
+</html>
+<script>
+$(document).ready(function(){
+ $('#captcha_form').on('submit', function(event){
+  event.preventDefault();
+  $.ajax({
+   url:"process_data.php",
+   method:"POST",
+   data:$(this).serialize(),
+   dataType:"json",
+   beforeSend:function()
+   {
+    $('#register').attr('disabled','disabled');
+   },
+   success:function(data) {
+    $('#register').attr('disabled', false);
+    if(data.success) {
+     $('#captcha_form')[0].reset();
+     $('#first_name_error').text('');
+     $('#last_name_error').text('');
+     $('#email_error').text('');
+     $('#password_error').text('');
+     $('#captcha_error').text('');
+     grecaptcha.reset();
+     alert('회원가입이 되었습니다.');
+    }
+    else {
+     $('#first_name_error').text(data.first_name_error);
+     $('#last_name_error').text(data.last_name_error);
+     $('#email_error').text(data.email_error);
+     $('#password_error').text(data.password_error);
+     $('#captcha_error').text(data.captcha_error);
+    }
+   }
+  })
+ });
+});
+</script></xmp></strong>
+                </p>
+            </section>
+        </li>
+        <li class="tab-head-cont">
+            <a href="#">process_data.php</a>
+            <section>
+                <p><xmp><?php
+if(isset($_POST["first_name"])) {
+$first_name = '';
+$last_name = '';
+$email = '';
+$password = '';
+
+$first_name_error = '';
+$last_name_error = '';
+$email_error = '';
+$password_error = '';
+$captcha_error = '';
+
+if(empty($_POST["first_name"])) {
+    $first_name_error = 'First name is required';
+}
+else {
+    $first_name = $_POST["first_name"];
+}
+
+if(empty($_POST["last_name"])) {
+    $last_name_error = 'Last name is required';
+}
+else {
+    $last_name = $_POST["last_name"];
+}
+if(empty($_POST["email"])) {
+    $email_error = 'Email is required';
+}
+else {
+if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+    $email_error = 'Invalid Email';
+}
+else {
+    $email = $_POST["email"];
+    }
+}
+
+if(empty($_POST["password"])) {
+    $password_error = 'Password is required';
+}
+else {
+    $password = $_POST["password"];
+}
+
+if(empty($_POST['g-recaptcha-response'])) {
+    $captcha_error = 'Captcha is required';
+}
+else {
+$secret_key = '개인키 사용';
+
+$response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret_key.'&response='.$_POST['g-recaptcha-response']);
+
+$response_data = json_decode($response);
+
+if(!$response_data->success) {
+    $captcha_error = 'Captcha verification failed';
+    }
+}
+
+if($first_name_error == '' && $last_name_error == '' && $email_error == '' && $password_error == '' && $captcha_error == '') {
+$data = array(
+    'success'  => true
+);
+}
+else {
+$data = array(
+    'first_name_error' => $first_name_error,
+    'last_name_error' => $last_name_error,
+    'email_error'  => $email_error,
+    'password_error' => $password_error,
+    'captcha_error'  => $captcha_error
+);
+}
+
+echo json_encode($data);
+}
+?></xmp></p></strong>
+            </section>
+        </li>
+        </li>
+    </ul>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.accordion-tabs').children('li').first().children('a').addClass('is-active').next().addClass('is-open').show();
+        $('.accordion-tabs').on('click', 'li > a', function(event) {
+            if (!$(this).hasClass('is-active')) {
+                event.preventDefault();
+                $('.accordion-tabs .is-open').removeClass('is-open').hide();
+                $(this).next().toggleClass('is-open').toggle();
+                $('.accordion-tabs').find('.is-active').removeClass('is-active');
+                $(this).addClass('is-active');
+            } else {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+</div>
+<br>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">실행영상</h3>
+                            <div class="subheading mb-3">video</div><p>
+                            <video autoplay controls loop muted height="630" width="1000" loop='false'>
+  <source src="assets/img/recaptcha.mp4" type="video/mp4" >
+
+</video></p>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">0:00-0:44</span></div>
+                    </div>
+                    
+            </section>
+            <hr class="m-0" />
+
+
+<section class="resume-section" id="flask">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">PYTHON FLASK CHAT</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">1단계: 초기 웹페이지버전</h3>
+                            <div class="wrapper"><br>
+                            <a href="flask-chat-prototype/index.html" target="_blank">코드 열기</a><br>
+<p id="p1"><br><a href="http://flaskchat-application.herokuapp.com/" target="_blank">채팅 웹사이트(미리보기)</a>.</p>  
+
+                            <br><br>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="d-flex flex-column flex-md-row justify-content-between mb-5"><br><br>
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">2단계: BootStrap 추가버전</h3>
+                            <div class="wrapper"><br>
+                            <a href="flask-chat-prototype/index.html" target="_blank">코드 열기</a><br>
+                            <p id="p1"><br><a href="https://rchat-app.herokuapp.com/" target="_blank">채팅 웹사이트(미리보기)</a>.</p>  
+
+                            <div class="d-flex flex-column flex-md-row justify-content-between mb-5"><br>
+                        <div class="flex-grow-1">
+                            <br>
+                            <h3 class="mb-0">1단계 실행영상</h3>
+                            <div class="subheading mb-3">video</div><p>
+                            <video autoplay controls loop muted height="630" width="1000" loop='false'>
+  <source src="assets/img/first_flaskchat.mp4" type="video/mp4" >
+
+</video></p>
+                        </div>
+
+                        <div class="flex-shrink-0"><span class="text-primary">0:00-1:13</span></div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">2단계 실행영상</h3>
+                            <div class="subheading mb-3">video</div><p>
+                            <video autoplay controls loop muted height="630" width="1000" loop='false'>
+  <source src="assets/img/second.mp4" type="video/mp4" >
+
+</video></p>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">0:00-0:36</span></div>
+                    </div>
+            </section>
+
+                        <hr class="m-0" />
+
+            <!-- Interests-->
+            <section class="resume-section" id="django">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Django Channels Chat</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">web</h3>
+                            <p id="p1"><br><a href="https://channels.readthedocs.io/en/stable/" target="_blank">Django Channels docs(미리보기)</a></p>  
+
+</div>
+</div>
+<br>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">메인코드</h3>
+                            <div class="subheading mb-3">image</div><p>
+                                <strong>runserver.py</strong><br>
+                            <img src="assets/img/runserver.jpg" width="900px" height="400px"><br><br>
+
+                            <strong>routing.py</strong><br>
+                            <img src="assets/img/routing.jpg" width="600px" height="300px"><br><br>
+                            <strong>autoreload.py</strong><br>
+                            <img src="assets/img/autoreload.jpg" width="900px" height="400px"><br><br>
+</p>
+                        </div>
+                    </div>
+            </section>
+
+                        <hr class="m-0" />
+<section class="resume-section" id="react">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">React.js Chat</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">web</h3>
+                            <p id="p1"><br><a href="https://realtime-chat-application.netlify.app/" target="_blank">react.js chat(미리보기)</a></p>  
+
+</div>
+</div>
+<br>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">실행영상</h3>
+                            <div class="subheading mb-3">video</div><p>
+                            <video autoplay controls loop muted height="630" width="1000" loop='false'>
+  <source src="assets/img/reactchat.mp4" type="video/mp4" >
+
+</video></p>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">0:00-0:50</span></div>
+                    </div>
+            </section>
+
+
+
+
+
+
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

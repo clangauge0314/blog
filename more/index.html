@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Browse more</title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,300,700'>
+<link rel='stylesheet' href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="mobile-wrap">
+	<div class="mobile clearfix">
+		<div class="header">
+			<span class="ion-ios-navicon pull-left"><i></i></span>
+			<span class="title">홈 화면</span>
+			<span class="ion-ios-search pull-right"></span>
+			<div class="search">
+			<form method="post">
+				<input type="search" placeholder="Search Here">
+			</form>
+			</div>
+		</div>
+		<div class="sidebar">
+			<div class="sidebar-overlay"></div>
+			<div class="sidebar-content">
+				<div class="top-head">
+					<div class="name">이름</div><br>
+					<div class="email">이메일</div>
+				</div>
+				<div class="nav-left">
+					<a href="#home"><span class="ion-ios-home-outline"></span> 홈 화면</a>
+					<a href="#alarm"><span class="ion-ios-list-outline"></span> 알람</a>
+					<a href="#compose"><span class="ion-ios-compose-outline"></span> 시간</a>
+					<a href="#chats"><span class="ion-ios-chatboxes-outline"></span> 잡담</a>
+					<a href="#profile"><span class="ion-ios-person-outline"></span> 개인정보</a>
+					<a href="#settings"><span class="ion-ios-gear-outline"></span> 설정</a>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="html search">
+				<div class="title bounceInDown animated">검색 결과</div>
+				<p class="flipInX animated">죄송합니다, 결과를 찾을 수 없습니다.</b></p>
+			</div>
+			<div class="html welcome visible">
+				<div class="datetime">
+					<div class="day lightSpeedIn animated">목요일</div>
+					<div class="date lightSpeedIn animated">2015.06.18</div>
+					<div class="time lightSpeedIn animated">08:00 AM</div>
+				</div>
+			</div>
+			<div class="html alarm">
+				<div class="forecast clearfix">
+					<div class="datetime pull-left bounceInLeft animated">
+						<div class="day">목요일</div>
+						<div class="date">2015.06.18</div>
+					</div>
+					<div class="temperature pull-right bounceInRight animated">
+						<div class="unit"><span class="ion-ios-sunny-outline"></span> 34<i>&deg;</i></div>
+						<div class="location"></div>
+					</div>
+				</div>
+				<div class="alarm-list">
+					<div class="note clearfix slideInRight animated">
+						<div class="time pull-left">
+							<div class="hour">9</div>
+							<div class="shift">AM</div>
+						</div>
+						<div class="to-do pull-left">
+							<div class="title">HTML 코딩 완료하기</div>
+							<div class="subject">Web UI</div>
+						</div>
+					</div>
+					<div class="note clearfix slideInRight animated">
+						<div class="time pull-left">
+							<div class="hour">1</div>
+							<div class="shift">PM</div>
+						</div>
+						<div class="to-do pull-left">
+							<div class="title">점심식사</div>
+							<div class="subject"></div>
+						</div>
+					</div>
+					<div class="note clearfix slideInRight animated" data-revert="slideOutRight">
+						<div class="time pull-left">
+							<div class="hour">3</div>
+							<div class="shift">PM</div>
+						</div>
+						<div class="to-do pull-left">
+							<div class="title">낮잠</div>
+							<div class="subject">Hangouts</div>
+							<div class="user-list clearfix">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="html compose">
+				<div class="forms">
+					<div class="group clearfix slideInRight animated">
+						<label class="pull-left" for="compose-time"><span class="ion-ios-time-outline"></span> Time</label>
+						<input class="pull-right" id="compose-time" type="time">
+					</div>
+					<div class="group clearfix slideInLeft animated">
+						<label class="pull-left" for="compose-date"><span class="ion-ios-calendar-outline"></span> Date</label>
+						<input class="pull-right" id="compose-date" type="date">
+					</div>
+					<div class="group clearfix slideInRight animated">
+						<label class="pull-left" for="compose-title"><span class="ion-ios-paper-outline"></span> Title</label>
+						<input class="pull-right" id="compose-title" type="text">
+					</div>
+					<div class="group clearfix slideInLeft animated">
+						<label class="visible" for="compose-detail"><span class="ion-ios-list-outline"></span> Task</label>
+						<textarea class="visible" id="compose-detail" rows="3"></textarea>
+					</div>
+					<div class="action flipInY animated">
+						<button class="btn">추가하기</button>
+					</div>
+				</div>
+			</div>
+			<div class="html chats">
+				<div class="tabs-list clearfix">
+					<a href="#" class="tab active">사용자</a>
+					<a href="#" class="tab">메세지</a>
+					<a href="#" class="tab">그룹</a>
+				</div>
+				<div class="active-users">
+					<div class="user clearfix rotateInDownLeft animated">
+						<div class="photo pull-left">
+						</div>
+						<div class="desc pull-left">
+							<p class="name">이름</p>
+							<p class="position">직업</p>
+						</div>
+						<div class="idle pull-right"><span class="away"></span></div>
+					</div>
+					<div class="user clearfix rotateInDownRight animated">
+						<div class="photo pull-left">
+						</div>
+						<div class="desc pull-left">
+							<p class="name">이름</p>
+							<p class="position">직업</p>
+						</div>
+						<div class="idle pull-right"><span class="offline"></span></div>
+					</div>
+					<div class="user clearfix rotateInDownLeft animated">
+						<div class="photo pull-left">
+						</div>
+						<div class="desc pull-left">
+							<p class="name">이름</p>
+							<p class="position">직업</p>
+						</div>
+						<div class="idle pull-right"><span class="away"></span></div>
+					</div>
+					<div class="user clearfix rotateInDownRight animated">
+						<div class="photo pull-left">
+						</div>
+						<div class="desc pull-left">
+							<p class="name">이름</p>
+							<p class="position">직업</p>
+						</div>
+						<div class="idle pull-right"><span class="online"></span></div>
+					</div>
+					<div class="user clearfix rotateInDownLeft animated">
+						<div class="photo pull-left">
+						</div>
+						<div class="desc pull-left">
+							<p class="name">이름</p>
+							<p class="position">직업</p>
+						</div>
+						<div class="idle pull-right"><span class="online"></span></div>
+					</div>
+					<div class="user clearfix rotateInDownRight animated">
+						<div class="photo pull-left">
+						</div>
+						<div class="desc pull-left">
+							<p class="name">이름</p>
+							<p class="position">직업</p>
+						</div>
+						<div class="idle pull-right"><span class="online"></span></div>
+					</div>
+				</div>
+			</div>
+			<div class="html settings">
+				<div class="setting-list">
+					<div class="gear clearfix slideInRight animated">
+						<div class="title pull-left">일반</div>
+						<div class="action pull-right"><span class="ion-ios-arrow-right"></span></div>
+					</div>
+					<div class="gear clearfix slideInLeft animated">
+						<div class="title pull-left"><label for="gear-notice">알림</label></div>
+						<div class="action pull-right"><input id="gear-notice" class="on-off" type="checkbox"><label for="gear-notice"></label></div>
+					</div>
+					<div class="gear clearfix slideInRight animated">
+						<div class="title pull-left"><label for="gear-sound">사운드</label></div>
+						<div class="action pull-right"><input id="gear-sound" class="on-off" type="checkbox" checked><label for="gear-sound"></label></div>
+					</div>
+					<div class="gear clearfix slideInLeft animated">
+						<div class="title pull-left">테마</div>
+						<div class="action pull-right">기본 <span class="ion-ios-arrow-right"></span></div>
+					</div>
+					<div class="gear clearfix slideInRight animated">
+						<div class="title pull-left">도움말</div>
+						<div class="action pull-right"><span class="ion-ios-arrow-right"></span></div>
+					</div>
+					<div class="gear clearfix slideInLeft animated">
+						<div class="title pull-left">보안/정책</div>
+						<div class="action pull-right"><span class="ion-ios-arrow-right"></span></div>
+					</div>
+				</div>
+			</div>
+			<div class="html profile">
+				<div class="photo flipInX animated">
+					<img src="./img.jpg">
+					<div class="social">
+						<a href="https://facebook.com/khadkamhn" class="soc-item soc-count-1"><span class="ion-social-facebook"></span></a>
+						<a href="https://twitter.com/khadkamhn" class="soc-item soc-count-2"><span class="ion-social-twitter"></span></a>
+						<a href="https://github.com/khadkamhn" class="soc-item soc-count-3"><span class="ion-social-github"></span></a>
+						<a href="https://pinterest.com/khadkamhn" class="soc-item soc-count-4"><span class="ion-social-pinterest"></span></a>
+						<a href="https://np.linkedin.com/in/khadkamhn" class="soc-item soc-count-5"><span class="ion-social-linkedin"></span></a>
+						<a href="https://codepen.io/khadkamhn" class="soc-item soc-count-6"><span class="ion-social-codepen"></span></a>
+						<a href="skype:khadkamhn?userinfo" class="soc-item soc-count-7"><span class="ion-social-skype"></span></a>
+						<a href="http://dribbble.com/khadkamhn" class="soc-item soc-count-8"><span class="ion-social-dribbble"></span></a>
+					</div>
+				</div>
+				<div class="details">
+					<p class="heading flipInY animated">
+						<span class="name">이름</span>
+					</p>
+					<p class="text fadeInUp animated">내용입력</p>
+				</div>
+			</div>
+			<div class="html credits">
+				<div class="title flipInY animated">I have been using the following assets to build this design</div>
+				<div class="credit-ol">
+					<div class="credit-li lightSpeedIn animated"><a href="https://www.google.com/fonts/specimen/Roboto" target="_blank">roboto</a> <span>for typography</span></div>
+					<div class="credit-li lightSpeedIn animated"><a href="https://jquery.com" target="_blank">jquery</a> <span>for design/ui</span></div>
+					<div class="credit-li lightSpeedIn animated"><a href="http://ionicons.com/" target="_blank">ionicons</a> <span>for icons</span></div>
+					<div class="credit-li lightSpeedIn animated"><a href="http://uifaces.com/authorized" target="_blank">ui faces</a> <span>for avatar</span></div>
+					<div class="credit-li lightSpeedIn animated"><a href="https://daneden.github.io/animate.css/" target="_blank">animate.css</a> <span>for animation</span></div>
+					<div class="credit-li lightSpeedIn animated"><a href="https://dribbble.com/shots/1928064-Secret-Project" target="_blank">concept of design</a> <span>for layout</span></div>
+					<div class="credit-li lightSpeedIn animated"><a href="https://unsplash.com/photos/6asyCyR0K1Q/download" target="_blank">unsplash.com</a> <span>for background</span></div>
+				</div>
+			</div>
+		</div>
+		<div class="nav">
+			<a href="#profile" class="nav-item nav-count-1"><i class="ion-ios-person-outline"></i><span class="invisible">개인정보</span></a>
+			<a href="#compose" class="nav-item nav-count-2"><i class="ion-ios-compose-outline"></i><span class="invisible">일정추가</span></a>
+			<a href="#chats" class="nav-item nav-count-3"><i class="ion-ios-chatboxes-outline"></i><span class="invisible">잡담</span></a>
+			<a href="#alarm" class="nav-item nav-count-4"><i class="ion-ios-alarm-outline"></i><span class="invisible">알람</span></a>
+			<a href="#toggle" class="mask"><i class="ion-ios-plus-empty"></i></a>
+		</div>
+	</div>
+</div>
+<!-- partial -->
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
